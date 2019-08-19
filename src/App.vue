@@ -18,22 +18,23 @@
         </header>
 
 
-        <!--        <section class="search-and-filter-container">-->
-        <!--            <div class="search-container">-->
-        <!--                <i class="icon-search"></i>-->
-        <!--                <input type="text" placeholder="Search for a country...">-->
-        <!--            </div>-->
-        <!--            <div class="filter-container">-->
-        <!--                <i class="icon-sort-amount-desc"></i>-->
-        <!--                <select name="" id="">-->
-        <!--                    <option value="" disabled selected hidden>Filter by Region</option>-->
-        <!--                    <option value="">aaaaaa</option>-->
-        <!--                    <option value="">bbbbbb</option>-->
-        <!--                    <option value="">cccccc</option>-->
-        <!--                    <option value="">ddddddd</option>-->
-        <!--                </select>-->
-        <!--            </div>-->
-        <!--        </section>-->
+        <section class="search-and-filter-section container">
+            <div class="search-container">
+                <i class="icon-search"></i>
+                <input class="search-input" type="text" placeholder="Search for a country...">
+            </div>
+            <div class="filter-container">
+                <select name="" id="">
+                    <option value="" disabled selected hidden>Filter by Region</option>
+                    <option value="">aaaaaa</option>
+                    <option value="">bbbbbb</option>
+                    <option value="">cccccc</option>
+                    <option value="">ddddddd</option>
+                </select>
+                <i class="icon-sort-amount-desc"></i>
+
+            </div>
+        </section>
 
 
         <!--        <section class="countries-list">-->
@@ -84,30 +85,10 @@
 </script>
 
 <style lang="scss">
-    $text-color: #fff;
+    $text-color: hsl(200, 15%, 8%);
     $body-background: #fafafa;
     $element-background: #fff;
     $max-width: 1000px;
-    *{
-        margin: 0;
-        padding: 0;
-        font-family: 'Nunito Sans', sans-serif;
-        box-sizing: border-box;
-
-        &:after, &:before{
-            box-sizing: inherit;
-        }
-    }
-    body {
-        font-size: 12px;
-
-        @media (min-width: 719px) {
-            font-size: 16px;
-        }
-    }
-
-
-
 
     @function gap($x) {
         @return $x * 8px;
@@ -116,8 +97,32 @@
     @mixin material-shadow() {
         border: none;
         box-shadow: 1px 1px 2px rgba(black, 0.2);
+        border-radius: 4px;
     }
 
+
+
+
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'Nunito Sans', sans-serif;
+        box-sizing: border-box;
+        color: $text-color;
+        &:after, &:before{
+            box-sizing: inherit;
+        }
+    }
+    body {
+        font-size: 12px;
+        background: $body-background;
+        @media (min-width: 719px) {
+            font-size: 16px;
+        }
+    }
+    i{
+        opacity: 0.7;
+    }
 
 
 
@@ -125,6 +130,10 @@
         max-width: $max-width;
         margin-left: auto;
         margin-right: auto;
+
+        @media (min-width: $max-width) {
+            padding: 0 !important;
+        }
     }
 
 
@@ -169,6 +178,99 @@
 
 
 
+
+    /*===========================
+        Search & filter by container
+     =============================*/
+    .search-and-filter-section{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+
+        &.container{
+            padding: gap(2);
+        }
+
+        .search-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            background: $element-background;
+            padding: gap(1);
+            @include material-shadow();
+            margin: gap(2) 0;
+
+            .search-input {
+                margin-left: gap(2);
+                border: none;
+                width: 100%;
+                background: none;
+                font-size: 1.2em;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        .filter-container{
+            align-self: flex-end;
+            position: relative;
+            i{
+                position: absolute;
+                top: 0;
+                right: 0;
+                transform: translate(-40%,90%);
+            }
+
+            select {
+                border: none;
+                @include material-shadow();
+                width: 100%;
+                background: none;
+                font-size: 1.2em;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background: $element-background;
+                padding: gap(1);
+                padding-right: gap(4);
+            }
+        }
+
+    }
+
+/*
+ .filter-container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-end;
+            background: $element-background;
+            padding: gap(1);
+            @include material-shadow();
+            i{
+
+                margin-left: gap(1);
+            }
+
+            select {
+                border: none;
+                width: 100%;
+                background: none;
+                font-size: 1.2em;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+
+                &:focus{
+                    outline: none;
+                }
+                option:focus{
+                    outline: none;
+                    border-radius: none;
+                }
+            }
+        }*/
 
 
     /*===========================
@@ -271,58 +373,6 @@
 
 </style>
 
-<!--<style lang="scss">-->
-<!--    $white: #fff;-->
-<!--    $background-color: #fafafa;-->
-<!--    $max-width : 1000px;-->
-
-
-<!--    body {-->
-<!--        background: $background-color;-->
-
-<!--        font-size: 10px;-->
-
-<!--        @media (min-width: 359px){-->
-<!--            font-size: 14px;-->
-<!--        }-->
-
-
-<!--    }-->
-
-<!--    i {-->
-<!--        font-size: 1.2em;-->
-<!--    }-->
-
-<!--    #app {-->
-<!--        &.dark {-->
-<!--            background: hsl(207, 26%, 17%);-->
-<!--        }-->
-<!--    }-->
-
-
-<!--    /*===========================-->
-<!--         Top bar-->
-<!--    =============================*/-->
-
-
-<!--    /*.topbar {-->
-<!--        button {-->
-<!--            background: none;-->
-<!--            border: none;-->
-<!--            font-weight: 600;-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--            justify-content: center;-->
-<!--            font-size: 1.2em;-->
-
-<!--            i {-->
-<!--                padding-right: gutter(1);-->
-<!--            }-->
-<!--        }-->
-
-<!--    }*/-->
-
-
 <!--    /*===========================-->
 <!--       Search & Filter container-->
 <!--    =============================*/-->
@@ -349,16 +399,7 @@
 <!--            border-radius: 4px;-->
 
 
-<!--            input {-->
-<!--                margin-left:gutter(2) ;-->
-<!--                border: none;-->
-<!--                width: 100%;-->
-<!--                background: none;-->
-<!--                font-size: 1.2em;-->
-<!--                &:focus{-->
-<!--                    outline: none;-->
-<!--                }-->
-<!--            }-->
+
 
 <!--            /*i {*/-->
 <!--            /*    position: absolute;*/-->
