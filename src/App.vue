@@ -36,18 +36,17 @@
             </div>
         </section>
 
-
-        <!--        <section class="countries-list">-->
-        <!--            <div class="country" v-for="country in countriesData">-->
-        <!--                <div class="flag-img" v-bind:style="{ 'background-image': 'url(' + country.flag + ')' }"></div>-->
-        <!--                <div class="meta-info">-->
-        <!--                    <h4 class="name">{{country.name}}</h4>-->
-        <!--                    <p><span>Population: </span> {{ country.population }} </p>-->
-        <!--                    <p><span>Region: </span> {{ country.region }} </p>-->
-        <!--                    <p><span>Capital: </span> {{ country.capital }} </p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </section>-->
+        <section class="countries-list container">
+            <div class="country" v-for="country in countriesData">
+                <div class="flag-img" v-bind:style="{ 'background-image': 'url(' + country.flag + ')' }"></div>
+                <div class="meta-info">
+                    <h4 class="name">{{country.name}}</h4>
+                    <p><span>Population: </span> {{ country.population }} </p>
+                    <p><span>Region: </span> {{ country.region }} </p>
+                    <p><span>Capital: </span> {{ country.capital }} </p>
+                </div>
+            </div>
+        </section>
 
 
     </div>
@@ -125,12 +124,12 @@
     }
 
 
-
     .container{
         max-width: $max-width;
         margin-left: auto;
         margin-right: auto;
-
+        padding-left: gap(2);
+        padding-right: gap(2);
         @media (min-width: $max-width) {
             padding: 0 !important;
         }
@@ -144,7 +143,7 @@
     .top-bar {
         background: $element-background;
         @include material-shadow();
-        padding: gap(2);
+        padding: gap(2) 0;
 
         .container {
             display: flex;
@@ -187,10 +186,6 @@
         justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
-
-        &.container{
-            padding: gap(2);
-        }
 
         .search-container{
             display: flex;
@@ -240,37 +235,74 @@
 
     }
 
-/*
- .filter-container{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            align-self: flex-end;
+
+
+    /*===========================
+           countries list
+     =============================*/
+    .countries-list{
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*justify-content: center;*/
+        /*align-items: center;*/
+        margin-top: gap(6);
+        display: grid;
+        grid-template-columns: minmax(150px, 220px);
+
+        grid-row-gap: gap(8);
+        align-items: center;
+        justify-content: center;
+
+        .country {
             background: $element-background;
-            padding: gap(1);
-            @include material-shadow();
-            i{
+            border-radius: 4px;
+            box-shadow: 1px 1px 2px rgba(black, 0.2);
+            overflow: hidden;
+            .flag-img{
+                min-width: 100px;
+                min-height: 120px;
+                background-position: center;
+                background-size: cover;
 
-                margin-left: gap(1);
+                @media (min-width: 225px){
+                    height: 150px;
+                }
+
             }
 
-            select {
-                border: none;
-                width: 100%;
-                background: none;
-                font-size: 1.2em;
-                -webkit-appearance: none;
-                -moz-appearance: none;
+            .meta-info{
+                padding: gap(2);
+                .name{
+                    font-size: 1.2em;
+                    margin: gap(1) 0;
+                }
+                span{
+                    font-weight: 600;
+                }
 
-                &:focus{
-                    outline: none;
-                }
-                option:focus{
-                    outline: none;
-                    border-radius: none;
-                }
             }
-        }*/
+
+        }
+
+
+
+
+        @media (min-width: 500px) {
+            grid-template-columns: repeat(2, 220px);
+            justify-content: space-around;
+
+        }
+        @media (min-width:800px) {
+            grid-template-columns: repeat(3, 220px);
+        }
+        @media (min-width:1050px) {
+            grid-template-columns: repeat(4, 220px);
+            justify-content: space-between;
+        }
+
+
+    }
+
 
 
     /*===========================
@@ -372,72 +404,6 @@
     }
 
 </style>
-
-<!--    /*===========================-->
-<!--       Search & Filter container-->
-<!--    =============================*/-->
-<!--    .search-and-filter-container {-->
-<!--        margin: gutter(4) 0;-->
-<!--        display: flex;-->
-<!--        justify-content: flex-start;-->
-<!--        align-items: flex-start;-->
-<!--        flex-direction: column;-->
-<!--        padding: gutter(2);-->
-
-<!--        .search-container {-->
-
-
-<!--            /*position: relative;*/-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            margin: gutter(2) 0;-->
-<!--            align-self: center;-->
-<!--            background: $white;-->
-<!--            box-shadow: 1px 1px 2px rgba(black, 0.2);-->
-<!--            padding: gutter(1.5) gutter(2) ;-->
-<!--            border-radius: 4px;-->
-
-
-
-
-<!--            /*i {*/-->
-<!--            /*    position: absolute;*/-->
-<!--            /*    top: 0;*/-->
-<!--            /*    left: gutter(1);*/-->
-<!--            /*    transform: translateY(80%);*/-->
-<!--            /*}*/-->
-<!--        }-->
-
-
-<!--        .filter-container {-->
-<!--            position: relative;-->
-
-<!--            select {-->
-<!--                width: 100%;-->
-<!--                -webkit-appearance: none;-->
-<!--                -moz-appearance: none;-->
-<!--                padding: gutter(1.5) gutter(5) gutter(1.5) gutter(1.5);-->
-<!--                border: none;-->
-<!--                border-radius: 4px;-->
-<!--                box-shadow: 1px 1px 2px rgba(black, 0.2);-->
-<!--                font-size: 1.2em;-->
-
-
-<!--            }-->
-
-<!--            i {-->
-<!--                position: absolute;-->
-<!--                top: 0;-->
-<!--                right: gutter(1);-->
-<!--                transform: translateY(90%);-->
-
-<!--            }-->
-
-
-<!--        }-->
-<!--    }-->
-
 
 <!--    /*===========================-->
 <!--      Countries List-->
