@@ -1,8 +1,9 @@
 
-import App from './App.vue';
+import Home from './components/Home.vue';
 import country from './components/Country.vue';
 
 
 export  const routes = [
-    { path: '/:name', component: country},
+    { path: '', component: Home, name: "home"},
+    { path: '/:name', component: country, name: "countryDetail"},
 ];
