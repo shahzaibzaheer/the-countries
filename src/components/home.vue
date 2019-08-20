@@ -12,7 +12,7 @@
         <header class="top-bar" :class="{dark: isDarkMode}">
             <div class="container">
                 <h2 class="title">The-Countries</h2>
-                <button :class="{dark: isDarkMode}" @click="isDarkMode = !isDarkMode">
+                <button :class="{dark: isDarkMode}" @click="$store.commit('toggleDarkMode')">
                     <span v-if="isDarkMode"><i class="icon-sun"></i>Light Mode</span>
                     <span v-else><i class="icon-moon-o"></i>Dark Mode</span>
 
@@ -59,6 +59,10 @@
     </div>
 </template>
 <script>
+
+
+
+
     export default {
         mounted() {
             this.fetchCountriesData();
@@ -71,11 +75,13 @@
                 query: "",
                 showTotal: true,
                 selectedRegion: "",
-                isDarkMode: true,
             }
         },
 
         computed: {
+            isDarkMode(){
+              return this.$store.state.isDark;
+            },
             filteredCountriesList() {
                 // console.log(this.countriesData);
                 if (this.selectedRegion.length > 0) {
@@ -129,7 +135,8 @@
                         this.isFetchComplete = true;
                     })
                     .catch(err => console.log(err));
-            }
+            },
+
         }
 
 

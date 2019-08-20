@@ -14,7 +14,7 @@
             <header class="top-bar" :class="{dark: isDarkMode}">
                 <div class="container">
                     <h2 class="title">The-Countries</h2>
-                    <button :class="{dark: isDarkMode}" @click="isDarkMode = !isDarkMode">
+                    <button :class="{dark: isDarkMode}" @click="$store.commit('toggleDarkMode')">
                         <span v-if="isDarkMode"><i class="icon-sun"></i>Light Mode</span>
                         <span v-else><i class="icon-moon-o"></i>Dark Mode</span>
 
@@ -60,7 +60,57 @@
     </div>
 </template>
 
+<script>
+    //endpoint: https://restcountries.eu/rest/v2/name/Anguilla?fullText=true
 
+
+    export default {
+
+        mounted() {
+            this.fetchCountryData();
+        },
+
+        data() {
+            return {
+                countryData: {},
+                requestErrorString: "",
+                isRequestError: false,
+                isFetchComplete: false,
+
+            }
+        },
+        computed:{
+            isDarkMode(){
+                  return this.$store.state.isDark;
+            },
+        },
+        methods: {
+            fetchCountryData() {
+                let countryName = this.$route.params.name;
+                let url = "https://restcountries.eu/rest/v2/name/" + countryName + "?fullText=true";
+
+                fetch(url).then(res => {
+
+                    if (res.status === 200) {
+                        return res.json();
+                    } else {
+                        throw new Error("Error while receiving data...");
+                    }
+
+                }).then(data => {
+                    this.countryData = data[0]; // because country data object is received array's first item
+                    this.isFetchComplete = true;
+                }).catch(err => {
+                    this.isRequestError = true;
+                    this.requestErrorString = err;
+                    this.isFetchComplete = true;
+
+                });
+
+            }
+        },
+    }
+</script>
 <style lang="scss">
     @import "../stylesheets/partials/variables";
     @import "../stylesheets/partials/common-styles";
@@ -128,6 +178,38 @@
             }
         }
 
+        .meta-info div{
+            margin: gap(4) 0;
+
+            .name{
+                font-size: 2.4em;
+                margin-bottom: gap(2);
+                font-weight: 800;
+            }
+
+            p{
+                font-size: 1.2em;
+                margin: gap(1) 0;
+
+                @media (min-width: 300px) {
+                    font-size: 1.4em;
+                }
+
+                @media (min-width: 719px) {
+                    font-size: 1.2em;
+                }
+            }
+
+
+            span {
+                font-weight: 600;
+            }
+
+
+        }
+
+
+
         @media (min-width: 720px) {
             flex-direction: row;
             justify-content: space-around;
@@ -136,50 +218,4 @@
     }
 
 </style>
-<script>
-    //endpoint: https://restcountries.eu/rest/v2/name/Anguilla?fullText=true
 
-
-    export default {
-
-        mounted() {
-            this.fetchCountryData();
-        },
-
-        data() {
-            return {
-                countryData: {},
-                requestErrorString: "",
-                isRequestError: false,
-                isFetchComplete: false,
-                isDarkMode: true,
-
-            }
-        },
-        methods: {
-            fetchCountryData() {
-                let countryName = this.$route.params.name;
-                let url = "https://restcountries.eu/rest/v2/name/" + countryName + "?fullText=true";
-
-                fetch(url).then(res => {
-
-                    if (res.status === 200) {
-                        return res.json();
-                    } else {
-                        throw new Error("Error while receiving data...");
-                    }
-
-                }).then(data => {
-                    this.countryData = data[0]; // because country data object is received array's first item
-                    this.isFetchComplete = true;
-                }).catch(err => {
-                    this.isRequestError = true;
-                    this.requestErrorString = err;
-                    this.isFetchComplete = true;
-
-                });
-
-            }
-        },
-    }
-</script>

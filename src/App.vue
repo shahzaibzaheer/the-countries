@@ -6,6 +6,7 @@
     import Home from './components/Home.vue';
     import Country from './components/Country.vue';
 
+
     export default {
         components:{
             'home': Home,
